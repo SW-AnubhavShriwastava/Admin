@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 36px;
+            color: #333;
+        }
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        th {
+            background-color: #007bff;
+            color: white;
+            font-size: 18px;
+        }
+        td {
+            font-size: 16px;
+            color: #333;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+        .ideal, .on-break {
+            font-weight: bold;
+            color: red;
+        }
+        .on-break {
+            color: orange;
+        }
+        .status-column {
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <h1>Admin Dashboard</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Employee</th>
+                <th>Product</th>
+                <th>Micro Service</th>
+                <th>Task Description</th>
+                <th>Check-In Time</th>
+                <th>Activity</th>
+                <th>Utilization</th>
+                <th>Break of the Day</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for row in dashboard_data %}
+            <tr>
+                <td>{{ row.employee }}</td>
+                <td>{% if row.task_description != 'Ideal' %}{{ row.product if row.product else '' }}{% endif %}</td>
+                <td>{% if row.task_description != 'Ideal' %}{{ row.micro_service if row.micro_service else '' }}{% endif %}</td>
+                <td class="{% if row.task_description == 'Ideal' %}ideal{% elif row.task_description == 'On Break' %}on-break{% endif %}">
+                    {% if row.task_description == 'On Break' %}
+                        On Break
+                    {% else %}
+                        {{ row.task_description }}
+                    {% endif %}
+                </td>
+                <td>{{ row.check_in_time }}</td>
+                <td>{% if row.task_description != 'Ideal' %}{{ row.activity }}{% endif %}</td>
+                <td>{% if row.task_description != 'Ideal' %}{{ row.utilization }}{% endif %}</td>
+                <td>{{ row.break_of_the_day }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
