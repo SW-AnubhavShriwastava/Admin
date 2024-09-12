@@ -1,7 +1,7 @@
 from flask import Flask, render_template, jsonify
 import socket
 import json
-from datetime import datetime
+from datetime import datetime, timedelta
 
 app = Flask(__name__)
 
@@ -66,6 +66,13 @@ def admin_dashboard():
         # Format the task and break data for dashboard display
         task_description = task_status if isinstance(task_status, str) else task_status['Task Description']
         check_in_time = task_status.get('Check-In Time', 'Ideal') if isinstance(task_status, dict) else 'Ideal'
+
+        # Add logic to convert check_in_time from UTC to IST
+        if check_in_time != 'Ideal':
+            check_in_time_obj = datetime.strptime(check_in_time, '%H:%M:%S')  # Assuming the format is 'HH:MM:SS'
+            check_in_time_obj += timedelta(hours=5, minutes=30)  # Add 5 hours and 30 minutes for IST
+            check_in_time = check_in_time_obj.strftime('%H:%M:%S')  # Convert it back to a string
+
         activity = task_status.get('Activity', 'Ideal') if isinstance(task_status, dict) else ''
         utilization = task_status.get('Utilization', '') if isinstance(task_status, dict) else ''
         
