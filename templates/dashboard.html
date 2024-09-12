@@ -62,7 +62,7 @@
                 <th>Product</th>
                 <th>Micro Service</th>
                 <th>Task Description</th>
-                <th>Check-In Time</th>
+                <th>Check-In Time (IST)</th>
                 <th>Activity</th>
                 <th>Utilization</th>
                 <th>Break of the Day</th>
@@ -81,7 +81,7 @@
                         {{ row.task_description }}
                     {% endif %}
                 </td>
-                <td>{{ row.check_in_time }}</td>
+                <td>{{ row.check_in_time }}</td> <!-- This will now display in IST -->
                 <td>{% if row.task_description != 'Ideal' %}{{ row.activity }}{% endif %}</td>
                 <td>{% if row.task_description != 'Ideal' %}{{ row.utilization }}{% endif %}</td>
                 <td>{{ row.break_of_the_day }}</td>
