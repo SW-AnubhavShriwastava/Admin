@@ -6,7 +6,7 @@ from datetime import datetime, timedelta
 app = Flask(__name__)
 
 # Server IP and Port for communication
-SERVER_IP = '35.202.130.217'  # Replace with actual server IP when deploying
+SERVER_IP = '34.47.222.9'  # Replace with actual server IP when deploying
 SERVER_PORT = 12346
 
 # Helper function to communicate with the server
